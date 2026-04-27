@@ -490,7 +490,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero__portrait {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 460px;
   aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
@@ -498,20 +498,20 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   isolation: isolate;
 }
 
-/* Soft purple "moon" glow that shows behind the head */
+/* Soft purple "moon" glow behind the head — extends past the portrait edge */
 .hero__portrait-glow {
   position: absolute;
-  width: 78%;
+  width: 100%;
   aspect-ratio: 1 / 1;
   left: 50%;
-  top: 38%;
+  top: 36%;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle,
     rgba(167, 139, 250, 0.55) 0%,
-    rgba(139, 92, 246, 0.32) 30%,
-    rgba(124, 58, 237, 0.12) 55%,
-    transparent 75%);
-  filter: blur(35px);
+    rgba(139, 92, 246, 0.30) 25%,
+    rgba(124, 58, 237, 0.14) 50%,
+    transparent 72%);
+  filter: blur(38px);
   z-index: 0;
   animation: glowPulse 8s ease-in-out infinite;
   pointer-events: none;
@@ -521,28 +521,25 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
 }
 
-/* Portrait image: aggressive radial mask drops the gray studio
-   background so only the face/body shows, blending into the dark theme. */
+/* Portrait image: full body visible, only outer edges feathered into bg */
 .hero__portrait img {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
-  border-radius: 0;
-  filter: contrast(1.05) saturate(1.05) brightness(0.98);
-  -webkit-mask-image: radial-gradient(ellipse 58% 70% at 50% 48%,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 38%,
-    rgba(0,0,0,0.65) 60%,
-    rgba(0,0,0,0.2) 80%,
+  object-position: center 12%;
+  border-radius: 18px;
+  filter: contrast(1.03) saturate(1.05) brightness(0.93);
+  -webkit-mask-image: radial-gradient(ellipse 95% 92% at center,
+    rgba(0,0,0,1) 55%,
+    rgba(0,0,0,0.88) 75%,
+    rgba(0,0,0,0.45) 90%,
     transparent 100%);
-          mask-image: radial-gradient(ellipse 58% 70% at 50% 48%,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 38%,
-    rgba(0,0,0,0.65) 60%,
-    rgba(0,0,0,0.2) 80%,
+          mask-image: radial-gradient(ellipse 95% 92% at center,
+    rgba(0,0,0,1) 55%,
+    rgba(0,0,0,0.88) 75%,
+    rgba(0,0,0,0.45) 90%,
     transparent 100%);
 }
 
@@ -1141,16 +1138,16 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   }
   .hero__media {
     min-height: 560px;
-    justify-content: center;
-    padding-right: 170px; /* room for stats card on the right */
+    justify-content: flex-end;
+    padding-right: 120px; /* room for stats card on the right */
   }
   .hero__portrait {
-    max-width: 360px;
+    max-width: 380px;
   }
   .hero__stats {
     position: absolute;
-    right: 0;
-    top: 50%;
+    right: 40px;
+    top: 55%;
     transform: translateY(-50%);
     grid-template-columns: 1fr;
     gap: 1.1rem;
