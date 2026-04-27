@@ -421,21 +421,16 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 .hero__title {
-  font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
   font-weight: 700;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.035em;
   margin-bottom: 1.75rem;
   color: var(--text);
-  white-space: normal;
 }
 .hero__title .line {
   display: block;
   overflow: hidden;
-  white-space: nowrap;
-}
-@media (max-width: 520px) {
-  .hero__title .line { white-space: normal; }
 }
 .hero__title-accent {
   background: var(--gradient);
@@ -495,7 +490,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero__portrait {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 360px;
+  aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -504,33 +500,33 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .hero__portrait-glow {
   position: absolute;
-  width: 90%;
+  width: 110%;
   aspect-ratio: 1 / 1;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(167,139,250,0.55) 0%, rgba(139,92,246,0.28) 28%, transparent 62%);
-  filter: blur(50px);
+  background: radial-gradient(circle, rgba(167,139,250,0.5) 0%, rgba(139,92,246,0.22) 30%, transparent 65%);
+  filter: blur(55px);
   z-index: 0;
   animation: glowPulse 7s ease-in-out infinite;
   pointer-events: none;
 }
 @keyframes glowPulse {
   0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.06); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.05); }
 }
 
 .hero__portrait img {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: auto;
-  max-height: 560px;
-  object-fit: contain;
-  border-radius: 18px;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 16px;
   filter: contrast(1.04) saturate(1.05);
-  -webkit-mask-image: radial-gradient(ellipse 95% 95% at center, black 60%, transparent 100%);
-          mask-image: radial-gradient(ellipse 95% 95% at center, black 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at center, black 55%, transparent 100%);
+          mask-image: radial-gradient(ellipse 100% 100% at center, black 55%, transparent 100%);
 }
 
 /* ----- Stats card (glassmorphism) ----- */
@@ -1122,19 +1118,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (min-width: 980px) {
   .hero { padding: 4rem 0 7rem; }
   .hero__grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: 3rem;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: center;
   }
   .hero__media {
-    min-height: 560px;
-    justify-content: flex-end;
-    padding-right: 4rem;
+    min-height: 540px;
+    justify-content: center;
+    padding-right: 200px; /* room for stats card on the right */
   }
   .hero__portrait {
-    max-width: 480px;
-  }
-  .hero__portrait img {
-    max-height: 600px;
+    max-width: 320px;
   }
   .hero__stats {
     position: absolute;
@@ -1142,14 +1136,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     top: 50%;
     transform: translateY(-50%);
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-    padding: 1.6rem 1.5rem;
-    width: 200px;
-    max-width: 200px;
+    gap: 1.1rem;
+    padding: 1.5rem 1.35rem;
+    width: 180px;
+    max-width: 180px;
     margin-top: 0;
   }
-  .hero__stat strong { font-size: 1.7rem; }
-  .hero__stat span { font-size: 0.76rem; }
+  .hero__stat strong { font-size: 1.6rem; }
+  .hero__stat span { font-size: 0.74rem; }
 
   .about { grid-template-columns: 1fr 1fr; gap: 4rem; }
   .focus-grid { grid-template-columns: 1fr 1fr; }
@@ -1158,12 +1152,25 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .project--flagship { grid-column: span 2; }
 }
 
-@media (min-width: 1200px) {
-  .hero__media { padding-right: 5rem; }
+@media (min-width: 1100px) {
+  .hero__grid { gap: 3rem; }
+  .hero__media { padding-right: 220px; }
+  .hero__portrait { max-width: 360px; }
+  .hero__stats {
+    width: 200px;
+    max-width: 200px;
+    padding: 1.6rem 1.5rem;
+  }
+  .hero__stat strong { font-size: 1.75rem; }
+  .hero__stat span { font-size: 0.78rem; }
+}
+
+@media (min-width: 1280px) {
+  .hero__media { padding-right: 240px; }
+  .hero__portrait { max-width: 380px; }
   .hero__stats {
     width: 220px;
     max-width: 220px;
-    padding: 1.75rem 1.6rem;
   }
-  .hero__stat strong { font-size: 1.85rem; }
+  .hero__stat strong { font-size: 1.9rem; }
 }
