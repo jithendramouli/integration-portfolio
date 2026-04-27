@@ -477,20 +477,22 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: 0.88rem;
 }
 
-/* ----- Hero Right (portrait + stats) ----- */
+/* ----- Hero Right (portrait + stats side-by-side) ----- */
 .hero__media {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
   width: 100%;
   min-height: 420px;
 }
 
 .hero__portrait {
   position: relative;
+  flex: 1 1 auto;
   width: 100%;
-  max-width: 460px;
+  max-width: 380px;
   aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
@@ -498,67 +500,71 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   isolation: isolate;
 }
 
-/* Soft purple "moon" glow behind the head — extends past the portrait edge */
+/* Big soft purple halo that sits BEHIND the portrait and bleeds out around it */
 .hero__portrait-glow {
   position: absolute;
-  width: 100%;
+  width: 110%;
   aspect-ratio: 1 / 1;
   left: 50%;
-  top: 36%;
+  top: 38%;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle,
-    rgba(167, 139, 250, 0.55) 0%,
-    rgba(139, 92, 246, 0.30) 25%,
-    rgba(124, 58, 237, 0.14) 50%,
-    transparent 72%);
-  filter: blur(38px);
+    rgba(167, 139, 250, 0.65) 0%,
+    rgba(139, 92, 246, 0.40) 22%,
+    rgba(124, 58, 237, 0.20) 42%,
+    rgba(124, 58, 237, 0.06) 60%,
+    transparent 75%);
+  filter: blur(40px);
   z-index: 0;
   animation: glowPulse 8s ease-in-out infinite;
   pointer-events: none;
 }
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
+  0%, 100% { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.05); }
 }
 
-/* Portrait image: full body visible, only outer edges feathered into bg */
+/* Portrait image: aggressive radial feather so studio bg blends into the
+   dark theme — only the man stays solid, edges dissolve into purple glow */
 .hero__portrait img {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 12%;
-  border-radius: 18px;
-  filter: contrast(1.03) saturate(1.05) brightness(0.93);
-  -webkit-mask-image: radial-gradient(ellipse 95% 92% at center,
-    rgba(0,0,0,1) 55%,
-    rgba(0,0,0,0.88) 75%,
-    rgba(0,0,0,0.45) 90%,
+  object-position: center 14%;
+  border-radius: 0;
+  filter: contrast(1.04) saturate(1.05) brightness(0.92);
+  -webkit-mask-image: radial-gradient(ellipse 72% 85% at 50% 48%,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 38%,
+    rgba(0,0,0,0.85) 60%,
+    rgba(0,0,0,0.4) 80%,
     transparent 100%);
-          mask-image: radial-gradient(ellipse 95% 92% at center,
-    rgba(0,0,0,1) 55%,
-    rgba(0,0,0,0.88) 75%,
-    rgba(0,0,0,0.45) 90%,
+          mask-image: radial-gradient(ellipse 72% 85% at 50% 48%,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 38%,
+    rgba(0,0,0,0.85) 60%,
+    rgba(0,0,0,0.4) 80%,
     transparent 100%);
 }
 
-/* ----- Stats card (glassmorphism) ----- */
+/* ----- Stats card (glassmorphism) — sits next to portrait, never overlaps ---- */
 .hero__stats {
   position: relative;
-  margin-top: -2rem;
+  flex: 0 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem 2rem;
   padding: 1.5rem 1.75rem;
-  background: rgba(21, 17, 31, 0.7);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background: rgba(21, 17, 31, 0.72);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   width: 100%;
   max-width: 380px;
-  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+  box-shadow: 0 24px 60px -24px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .hero__stat {
@@ -1132,31 +1138,28 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (min-width: 980px) {
   .hero { padding: 4rem 0 7rem; }
   .hero__grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
     gap: 2rem;
     align-items: center;
   }
   .hero__media {
     min-height: 560px;
     justify-content: flex-end;
-    padding-right: 120px; /* room for stats card on the right */
+    gap: 0.75rem;
   }
   .hero__portrait {
-    max-width: 380px;
+    max-width: 320px;
+    flex: 1 1 0;
   }
   .hero__stats {
-    position: absolute;
-    right: 40px;
-    top: 55%;
-    transform: translateY(-50%);
     grid-template-columns: 1fr;
     gap: 1.1rem;
     padding: 1.5rem 1.35rem;
-    width: 175px;
-    max-width: 175px;
-    margin-top: 0;
+    width: 165px;
+    max-width: 165px;
+    align-self: center;
   }
-  .hero__stat strong { font-size: 1.6rem; }
+  .hero__stat strong { font-size: 1.55rem; }
   .hero__stat span { font-size: 0.74rem; }
 
   .about { grid-template-columns: 1fr 1fr; gap: 4rem; }
@@ -1168,11 +1171,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 @media (min-width: 1100px) {
   .hero__grid { gap: 2.5rem; }
-  .hero__media { padding-right: 200px; }
-  .hero__portrait { max-width: 400px; }
+  .hero__media { gap: 1rem; }
+  .hero__portrait { max-width: 360px; }
   .hero__stats {
-    width: 195px;
-    max-width: 195px;
+    width: 185px;
+    max-width: 185px;
     padding: 1.6rem 1.5rem;
   }
   .hero__stat strong { font-size: 1.75rem; }
@@ -1180,11 +1183,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 @media (min-width: 1280px) {
-  .hero__media { padding-right: 220px; }
-  .hero__portrait { max-width: 440px; }
+  .hero__portrait { max-width: 400px; }
   .hero__stats {
-    width: 215px;
-    max-width: 215px;
+    width: 205px;
+    max-width: 205px;
   }
   .hero__stat strong { font-size: 1.9rem; }
 }
