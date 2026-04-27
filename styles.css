@@ -373,6 +373,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 /* ==========================================================
    HERO
    ========================================================== */
+/* ==========================================================
+   HERO (FIXED PREMIUM VERSION)
+   ========================================================== */
+
 .hero {
   position: relative;
   padding: 4rem 0 6rem;
@@ -388,6 +392,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   align-items: center;
 }
 
+/* LEFT CONTENT */
 .hero__content {
   position: relative;
   z-index: 1;
@@ -477,115 +482,144 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: 0.88rem;
 }
 
-/* ----- Hero Right (portrait + stats side-by-side) ----- */
+/* RIGHT SIDE — CORE FIX */
 .hero__media {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
-  min-height: 420px;
+
+  /* space for floating stats */
+  padding-right: 160px;
+
+  min-height: 520px;
 }
 
+/* PORTRAIT CONTAINER */
 .hero__portrait {
   position: relative;
-  flex: 1 1 auto;
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
   aspect-ratio: 4 / 5;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  isolation: isolate;
+
+  z-index: 2;
 }
 
-/* Big soft purple halo that sits BEHIND the portrait and bleeds out around it */
+/* SOFT HALO GLOW (FIXED) */
 .hero__portrait-glow {
   position: absolute;
-  width: 110%;
-  aspect-ratio: 1 / 1;
-  left: 50%;
-  top: 38%;
+
+  width: 130%;
+  height: 130%;
+
+  left: 55%;
+  top: 45%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle,
-    rgba(167, 139, 250, 0.65) 0%,
-    rgba(139, 92, 246, 0.40) 22%,
-    rgba(124, 58, 237, 0.20) 42%,
-    rgba(124, 58, 237, 0.06) 60%,
-    transparent 75%);
-  filter: blur(40px);
-  z-index: 0;
-  animation: glowPulse 8s ease-in-out infinite;
+
+  background: radial-gradient(
+    circle,
+    rgba(167,139,250,0.35) 0%,
+    rgba(139,92,246,0.25) 30%,
+    rgba(124,58,237,0.1) 55%,
+    transparent 75%
+  );
+
+  filter: blur(25px);
+  opacity: 0.9;
+
+  z-index: 1;
   pointer-events: none;
+  animation: glowPulse 8s ease-in-out infinite;
 }
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.05); }
+  0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
 }
 
-/* Portrait image: aggressive radial feather so studio bg blends into the
-   dark theme — only the man stays solid, edges dissolve into purple glow */
+/* IMAGE BLENDING FIX */
 .hero__portrait img {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 14%;
-  border-radius: 0;
-  filter: contrast(1.04) saturate(1.05) brightness(0.92);
-  -webkit-mask-image: radial-gradient(ellipse 72% 85% at 50% 48%,
+
+  /* better framing */
+  object-position: center 12%;
+
+  /* subtle tuning */
+  filter: brightness(0.95) contrast(1.02);
+
+  /* MUCH SOFTER MASK (NO HARD BOX) */
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 95% at 50% 50%,
     rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 38%,
     rgba(0,0,0,0.85) 60%,
     rgba(0,0,0,0.4) 80%,
-    transparent 100%);
-          mask-image: radial-gradient(ellipse 72% 85% at 50% 48%,
+    transparent 100%
+  );
+          mask-image: radial-gradient(
+    ellipse 85% 95% at 50% 50%,
     rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 38%,
     rgba(0,0,0,0.85) 60%,
     rgba(0,0,0,0.4) 80%,
-    transparent 100%);
+    transparent 100%
+  );
 }
 
-/* ----- Stats card (glassmorphism) — sits next to portrait, never overlaps ---- */
+/* FLOATING STATS CARD (FIXED) */
 .hero__stats {
-  position: relative;
-  flex: 0 0 auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem 2rem;
-  padding: 1.5rem 1.75rem;
-  background: rgba(21, 17, 31, 0.72);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  width: 100%;
-  max-width: 380px;
-  box-shadow: 0 24px 60px -24px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
+  position: absolute;
+
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 180px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  padding: 1.5rem;
+
+  background: rgba(21, 17, 31, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.7);
+
+  z-index: 3;
 }
 
+/* STATS TEXT */
 .hero__stat {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
+
 .hero__stat strong {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.1;
-  background: var(--gradient);
+
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
   -webkit-background-clip: text;
-  background-clip: text;
   color: transparent;
-  letter-spacing: -0.03em;
 }
+
 .hero__stat span {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--text-soft);
-  font-weight: 500;
 }
 
 /* ==========================================================
@@ -1122,7 +1156,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .skills { grid-template-columns: repeat(2, 1fr); }
   .focus-grid { grid-template-columns: repeat(2, 1fr); }
   .footer__inner { flex-direction: row; }
-  .hero__stats { max-width: 380px; margin-top: 0; }
 }
 
 @media (min-width: 880px) {
@@ -1136,57 +1169,15 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 @media (min-width: 980px) {
-  .hero { padding: 4rem 0 7rem; }
   .hero__grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2.5rem;
     align-items: center;
   }
-  .hero__media {
-    min-height: 560px;
-    justify-content: flex-end;
-    gap: 0.75rem;
-  }
-  .hero__portrait {
-    max-width: 320px;
-    flex: 1 1 0;
-  }
-  .hero__stats {
-    grid-template-columns: 1fr;
-    gap: 1.1rem;
-    padding: 1.5rem 1.35rem;
-    width: 165px;
-    max-width: 165px;
-    align-self: center;
-  }
-  .hero__stat strong { font-size: 1.55rem; }
-  .hero__stat span { font-size: 0.74rem; }
 
   .about { grid-template-columns: 1fr 1fr; gap: 4rem; }
   .focus-grid { grid-template-columns: 1fr 1fr; }
   .skills { grid-template-columns: repeat(3, 1fr); }
   .projects { grid-template-columns: repeat(2, 1fr); }
   .project--flagship { grid-column: span 2; }
-}
-
-@media (min-width: 1100px) {
-  .hero__grid { gap: 2.5rem; }
-  .hero__media { gap: 1rem; }
-  .hero__portrait { max-width: 360px; }
-  .hero__stats {
-    width: 185px;
-    max-width: 185px;
-    padding: 1.6rem 1.5rem;
-  }
-  .hero__stat strong { font-size: 1.75rem; }
-  .hero__stat span { font-size: 0.78rem; }
-}
-
-@media (min-width: 1280px) {
-  .hero__portrait { max-width: 400px; }
-  .hero__stats {
-    width: 205px;
-    max-width: 205px;
-  }
-  .hero__stat strong { font-size: 1.9rem; }
 }
