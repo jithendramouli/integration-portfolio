@@ -490,7 +490,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero__portrait {
   position: relative;
   width: 100%;
-  max-width: 360px;
+  max-width: 440px;
   aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
@@ -498,35 +498,52 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   isolation: isolate;
 }
 
+/* Soft purple "moon" glow that shows behind the head */
 .hero__portrait-glow {
   position: absolute;
-  width: 110%;
+  width: 78%;
   aspect-ratio: 1 / 1;
   left: 50%;
-  top: 50%;
+  top: 38%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(167,139,250,0.5) 0%, rgba(139,92,246,0.22) 30%, transparent 65%);
-  filter: blur(55px);
+  background: radial-gradient(circle,
+    rgba(167, 139, 250, 0.55) 0%,
+    rgba(139, 92, 246, 0.32) 30%,
+    rgba(124, 58, 237, 0.12) 55%,
+    transparent 75%);
+  filter: blur(35px);
   z-index: 0;
-  animation: glowPulse 7s ease-in-out infinite;
+  animation: glowPulse 8s ease-in-out infinite;
   pointer-events: none;
 }
 @keyframes glowPulse {
   0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.05); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
 }
 
+/* Portrait image: aggressive radial mask drops the gray studio
+   background so only the face/body shows, blending into the dark theme. */
 .hero__portrait img {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
-  border-radius: 16px;
-  filter: contrast(1.04) saturate(1.05);
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at center, black 55%, transparent 100%);
-          mask-image: radial-gradient(ellipse 100% 100% at center, black 55%, transparent 100%);
+  object-position: center 18%;
+  border-radius: 0;
+  filter: contrast(1.05) saturate(1.05) brightness(0.98);
+  -webkit-mask-image: radial-gradient(ellipse 58% 70% at 50% 48%,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 38%,
+    rgba(0,0,0,0.65) 60%,
+    rgba(0,0,0,0.2) 80%,
+    transparent 100%);
+          mask-image: radial-gradient(ellipse 58% 70% at 50% 48%,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 38%,
+    rgba(0,0,0,0.65) 60%,
+    rgba(0,0,0,0.2) 80%,
+    transparent 100%);
 }
 
 /* ----- Stats card (glassmorphism) ----- */
@@ -1118,17 +1135,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (min-width: 980px) {
   .hero { padding: 4rem 0 7rem; }
   .hero__grid {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
     align-items: center;
   }
   .hero__media {
-    min-height: 540px;
+    min-height: 560px;
     justify-content: center;
-    padding-right: 200px; /* room for stats card on the right */
+    padding-right: 170px; /* room for stats card on the right */
   }
   .hero__portrait {
-    max-width: 320px;
+    max-width: 360px;
   }
   .hero__stats {
     position: absolute;
@@ -1138,8 +1155,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     grid-template-columns: 1fr;
     gap: 1.1rem;
     padding: 1.5rem 1.35rem;
-    width: 180px;
-    max-width: 180px;
+    width: 175px;
+    max-width: 175px;
     margin-top: 0;
   }
   .hero__stat strong { font-size: 1.6rem; }
@@ -1153,12 +1170,12 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 @media (min-width: 1100px) {
-  .hero__grid { gap: 3rem; }
-  .hero__media { padding-right: 220px; }
-  .hero__portrait { max-width: 360px; }
+  .hero__grid { gap: 2.5rem; }
+  .hero__media { padding-right: 200px; }
+  .hero__portrait { max-width: 400px; }
   .hero__stats {
-    width: 200px;
-    max-width: 200px;
+    width: 195px;
+    max-width: 195px;
     padding: 1.6rem 1.5rem;
   }
   .hero__stat strong { font-size: 1.75rem; }
@@ -1166,11 +1183,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 @media (min-width: 1280px) {
-  .hero__media { padding-right: 240px; }
-  .hero__portrait { max-width: 380px; }
+  .hero__media { padding-right: 220px; }
+  .hero__portrait { max-width: 440px; }
   .hero__stats {
-    width: 220px;
-    max-width: 220px;
+    width: 215px;
+    max-width: 215px;
   }
   .hero__stat strong { font-size: 1.9rem; }
 }
