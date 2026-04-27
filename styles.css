@@ -391,7 +391,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 600px;
+  max-width: 660px;
 }
 
 .hero__eyebrow {
@@ -421,16 +421,21 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 .hero__title {
-  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-size: clamp(2.2rem, 5.4vw, 3.6rem);
   font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   margin-bottom: 1.75rem;
   color: var(--text);
+  white-space: normal;
 }
 .hero__title .line {
   display: block;
   overflow: hidden;
+  white-space: nowrap;
+}
+@media (max-width: 520px) {
+  .hero__title .line { white-space: normal; }
 }
 .hero__title-accent {
   background: var(--gradient);
@@ -473,6 +478,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .hero__contacts a:hover { color: var(--accent); }
 .hero__contacts svg { color: var(--accent); flex-shrink: 0; }
+.hero__contacts .hero__contact-icon span {
+  font-size: 0.88rem;
+}
 
 /* ----- Hero Right (portrait + stats) ----- */
 .hero__media {
@@ -481,50 +489,48 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 380px;
+  min-height: 420px;
 }
 
 .hero__portrait {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  aspect-ratio: 1 / 1;
+  max-width: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
+  isolation: isolate;
 }
 
 .hero__portrait-glow {
   position: absolute;
-  inset: 8%;
-  background: radial-gradient(circle at 50% 50%, rgba(167,139,250,0.55) 0%, rgba(139,92,246,0.25) 30%, transparent 65%);
-  filter: blur(40px);
+  width: 90%;
+  aspect-ratio: 1 / 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(167,139,250,0.55) 0%, rgba(139,92,246,0.28) 28%, transparent 62%);
+  filter: blur(50px);
   z-index: 0;
-  animation: glowPulse 6s ease-in-out infinite;
+  animation: glowPulse 7s ease-in-out infinite;
+  pointer-events: none;
 }
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.85; transform: scale(1); }
-  50%      { opacity: 1;    transform: scale(1.05); }
-}
-
-.hero__portrait-ring {
-  position: absolute;
-  inset: 4%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.05), transparent 50%);
-  border: 1px solid rgba(167,139,250,0.18);
-  z-index: 0;
+  0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.06); }
 }
 
 .hero__portrait img {
   position: relative;
   z-index: 1;
-  width: 92%;
-  height: 92%;
-  object-fit: cover;
-  border-radius: 50%;
-  filter: grayscale(0.15) contrast(1.05);
-  box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+  border-radius: 18px;
+  filter: contrast(1.04) saturate(1.05);
+  -webkit-mask-image: radial-gradient(ellipse 95% 95% at center, black 60%, transparent 100%);
+          mask-image: radial-gradient(ellipse 95% 95% at center, black 60%, transparent 100%);
 }
 
 /* ----- Stats card (glassmorphism) ----- */
@@ -1117,24 +1123,33 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .hero { padding: 4rem 0 7rem; }
   .hero__grid {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: 4rem;
+    gap: 3rem;
   }
   .hero__media {
-    min-height: 520px;
+    min-height: 560px;
+    justify-content: flex-end;
+    padding-right: 4rem;
+  }
+  .hero__portrait {
+    max-width: 480px;
+  }
+  .hero__portrait img {
+    max-height: 600px;
   }
   .hero__stats {
     position: absolute;
-    right: -1rem;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     grid-template-columns: 1fr;
-    gap: 1.1rem;
-    padding: 1.75rem 1.5rem;
-    width: 220px;
-    max-width: 220px;
+    gap: 1.25rem;
+    padding: 1.6rem 1.5rem;
+    width: 200px;
+    max-width: 200px;
     margin-top: 0;
   }
-  .hero__stat strong { font-size: 1.85rem; }
+  .hero__stat strong { font-size: 1.7rem; }
+  .hero__stat span { font-size: 0.76rem; }
 
   .about { grid-template-columns: 1fr 1fr; gap: 4rem; }
   .focus-grid { grid-template-columns: 1fr 1fr; }
@@ -1144,9 +1159,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 @media (min-width: 1200px) {
+  .hero__media { padding-right: 5rem; }
   .hero__stats {
-    right: -2rem;
-    width: 240px;
-    max-width: 240px;
+    width: 220px;
+    max-width: 220px;
+    padding: 1.75rem 1.6rem;
   }
+  .hero__stat strong { font-size: 1.85rem; }
 }
