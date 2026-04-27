@@ -1,0 +1,14 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts (not used here, future-proofing)
+dist/
+build/
+node_modules/
