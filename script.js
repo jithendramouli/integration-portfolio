@@ -14,14 +14,13 @@
   const yearEl = $('#year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- Sticky nav state + scroll progress ---------- */
+  /* ---------- Sticky nav + scroll progress ---------- */
   const nav = $('#nav');
   const progress = $('#scrollProgress');
 
   const onScroll = () => {
     const y = window.scrollY;
     if (nav) nav.classList.toggle('is-scrolled', y > 12);
-
     if (progress) {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const pct = max > 0 ? (y / max) * 100 : 0;
@@ -50,7 +49,6 @@
       mobile.hidden = expanded;
       document.body.style.overflow = expanded ? '' : 'hidden';
     });
-
     $$('a', mobile).forEach((a) => a.addEventListener('click', closeMobile));
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 880) closeMobile();
@@ -72,7 +70,7 @@
     });
   });
 
-  /* ---------- Hero text reveal (staggered) ---------- */
+  /* ---------- Hero/eyebrow staggered reveal ---------- */
   const heroLines = $$('.hero__title .line, .reveal-up');
   if ('IntersectionObserver' in window) {
     const heroIo = new IntersectionObserver((entries) => {
@@ -88,18 +86,15 @@
     heroLines.forEach((el) => el.classList.add('is-visible'));
   }
 
-  /* ---------- General section reveal ---------- */
-  const revealTargets = $$(
-    '.section, .timeline__item, .project, .pillar, .skill-card, .cert'
-  );
+  /* ---------- Section reveal ---------- */
+  const revealTargets = $$('.section, .timeline__item, .project, .focus, .skill-group');
   revealTargets.forEach((el) => el.classList.add('reveal'));
 
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry, i) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Stagger children inside the same parent block
             const siblings = entry.target.parentElement
               ? Array.from(entry.target.parentElement.children).filter((c) =>
                   c.classList.contains('reveal')
@@ -119,7 +114,7 @@
     revealTargets.forEach((el) => el.classList.add('is-visible'));
   }
 
-  /* ---------- Active nav link based on visible section ---------- */
+  /* ---------- Active nav link (scroll spy) ---------- */
   const navLinks = $$('.nav__links a');
   const sections = navLinks
     .map((a) => document.querySelector(a.getAttribute('href')))
@@ -141,7 +136,7 @@
     sections.forEach((s) => spy.observe(s));
   }
 
-  /* ---------- Animated count-up for hero metrics ---------- */
+  /* ---------- Animated count-up for hero stats ---------- */
   const counters = $$('[data-count]');
   if ('IntersectionObserver' in window && !prefersReduced) {
     const counterIo = new IntersectionObserver((entries) => {
@@ -196,5 +191,4 @@
       btn.setAttribute('aria-expanded', String(!isOpen));
     });
   });
-
 })();
