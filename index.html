@@ -402,10 +402,11 @@
               <div class="project__case-block">
                 <span class="project__case-label">Impact</span>
                 <ul>
-                  <li>Zero customer-facing incidents during the migration window</li>
-                  <li>Right-sized vCore + worker config drove measurable cost reduction</li>
-                  <li>Tighter API contracts cut consumer-side regression bugs</li>
-                  <li>Audit-ready logs and observability across all critical flows</li>
+                  <li>Zero customer-facing incidents across the entire migration window</li>
+                  <li>Right-sized vCore + worker config &mdash; lower runtime cost on the same throughput</li>
+                  <li>Versioned RAML contracts removed an entire class of consumer-side regressions</li>
+                  <li>Production issues now triaged from logs in minutes, not hours</li>
+                  <li>Owned the run-book &mdash; no escalations to other teams during cutover</li>
                 </ul>
               </div>
             </div>
@@ -449,9 +450,10 @@
               <div class="project__case-block">
                 <span class="project__case-label">Impact</span>
                 <ul>
-                  <li>Real-time sync replaced batch reconciliation</li>
-                  <li>Sharp drop in data-drift incidents and manual cleanup</li>
-                  <li>Ops freed to work on higher-value problems</li>
+                  <li>Replaced overnight batch reconciliation with real-time sync</li>
+                  <li>Order, customer, and inventory state now consistent across all three systems</li>
+                  <li>Eliminated the daily reconciliation workload from ops</li>
+                  <li>Failed payloads land in a dead-letter queue with full context &mdash; not lost</li>
                 </ul>
               </div>
             </div>
@@ -495,9 +497,10 @@
               <div class="project__case-block">
                 <span class="project__case-label">Impact</span>
                 <ul>
-                  <li>Eliminated duplicate client records at the source</li>
-                  <li>Cut Workato task consumption through recipe optimization</li>
-                  <li>Pipeline data now consistent across all three platforms</li>
+                  <li>Duplicate client records eliminated at the source &mdash; not patched downstream</li>
+                  <li>Workato task consumption cut through deliberate trigger and polling redesign</li>
+                  <li>Snowflake reporting trustworthy again &mdash; sales now act on pipeline data</li>
+                  <li>Every record change traceable to source via the audit layer</li>
                 </ul>
               </div>
             </div>
