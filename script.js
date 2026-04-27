@@ -42,7 +42,8 @@
   };
 
   if (toggle && mobile) {
-    toggle.addEventListener('click', () => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!expanded));
       toggle.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
@@ -50,6 +51,16 @@
       document.body.style.overflow = expanded ? '' : 'hidden';
     });
     $$('a', mobile).forEach((a) => a.addEventListener('click', closeMobile));
+
+    document.addEventListener('click', (e) => {
+      if (mobile.hidden) return;
+      if (!mobile.contains(e.target) && !toggle.contains(e.target)) closeMobile();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobile.hidden) closeMobile();
+    });
+
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 880) closeMobile();
     });

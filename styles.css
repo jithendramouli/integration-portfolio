@@ -355,14 +355,29 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   gap: 0.25rem;
   padding: 1rem 1.5rem 1.5rem;
   border-top: 1px solid var(--border);
-  background: rgba(10, 8, 20, 0.96);
-  backdrop-filter: blur(18px);
+  background: rgba(10, 8, 20, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  max-height: calc(100vh - 76px);
+  overflow-y: auto;
+  animation: slideDown 0.28s var(--ease-out);
+}
+.nav__mobile[hidden] { display: none !important; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .nav__mobile a {
   padding: 1rem 0.5rem;
   color: var(--text-muted);
   font-weight: 500;
   border-bottom: 1px solid var(--border);
+  transition: color 0.2s var(--ease), padding-left 0.2s var(--ease);
+}
+.nav__mobile a:hover,
+.nav__mobile a:focus-visible {
+  color: var(--accent);
+  padding-left: 0.85rem;
 }
 .nav__mobile a:last-child {
   margin-top: 0.85rem;
@@ -1152,8 +1167,77 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 /* ==========================================================
-   RESPONSIVE
+   RESPONSIVE — MOBILE FIRST
    ========================================================== */
+
+/* ---------- MOBILE (<880px): override desktop hero defaults ---------- */
+@media (max-width: 879px) {
+  .hero {
+    min-height: auto;
+    padding: 2.5rem 0 4rem;
+  }
+  .hero__grid { gap: 2rem; }
+  .hero__title { font-size: clamp(2rem, 8vw, 2.6rem); }
+  .hero__tagline { font-size: 0.97rem; margin-bottom: 2rem; }
+  .hero__cta { gap: 0.65rem; margin-bottom: 2rem; }
+  .hero__cta .btn { flex: 1 1 auto; justify-content: center; }
+  .hero__contacts {
+    flex-direction: column;
+    gap: 0.85rem;
+    padding-top: 1.5rem;
+  }
+  .hero__contacts a span { font-size: 0.85rem; }
+
+  /* ---- the critical mobile hero fix ---- */
+  .hero__media {
+    padding-right: 0 !important;
+    min-height: auto;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .hero__portrait {
+    max-width: 280px;
+  }
+  .hero__portrait-glow { width: 130%; height: 130%; }
+  .hero__stats {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 380px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem 2rem;
+    padding: 1.4rem 1.5rem;
+  }
+  .hero__stat { gap: 0.15rem; }
+  .hero__stat strong { font-size: 1.5rem; }
+  .hero__stat span { font-size: 0.72rem; }
+
+  /* tighter section spacing on phones */
+  .section { padding: 4.5rem 0; }
+  .section__head { margin-bottom: 2.5rem; }
+  .section__title { font-size: clamp(1.65rem, 6vw, 2.1rem); }
+  .section__lead { font-size: 0.95rem; }
+
+  /* about + cards stack cleanly */
+  .about { gap: 2.5rem; }
+  .about__lead { font-size: 1.05rem; }
+  .focus-grid { gap: 1rem; }
+  .focus { padding: 1.5rem; }
+
+  /* timeline tighter on mobile */
+  .timeline__item { padding-left: 2.25rem; padding-bottom: 2.5rem; }
+  .timeline__content { padding: 1.5rem; }
+  .timeline__head { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .timeline__list li { font-size: 0.92rem; }
+
+  /* projects + chips */
+  .project { padding: 1.5rem; }
+  .skill-group { padding: 1.5rem; }
+  .chips { gap: 0.4rem; }
+}
+
+/* ---------- TABLET ---------- */
 @media (min-width: 640px) {
   .container { padding: 0 2rem; }
   .skills { grid-template-columns: repeat(2, 1fr); }
@@ -1161,6 +1245,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .footer__inner { flex-direction: row; }
 }
 
+/* ---------- DESKTOP NAV ---------- */
 @media (min-width: 880px) {
   .nav__links { display: flex; }
   .nav__cta { display: inline-flex; }
@@ -1171,6 +1256,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .section__head { margin-bottom: 4rem; }
 }
 
+/* ---------- LARGE DESKTOP ---------- */
 @media (min-width: 980px) {
   .hero__grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1183,4 +1269,83 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .skills { grid-template-columns: repeat(3, 1fr); }
   .projects { grid-template-columns: repeat(2, 1fr); }
   .project--flagship { grid-column: span 2; }
+}
+
+/* ==========================================================
+   PROFESSIONAL POLISH
+   ========================================================== */
+
+/* Smoother focus ring for keyboard nav */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Primary button: subtle shimmer on hover */
+.btn--primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.7s var(--ease-out);
+  pointer-events: none;
+  z-index: 1;
+}
+.btn--primary:hover::after { transform: translateX(100%); }
+.btn--primary > * { position: relative; z-index: 2; }
+
+/* Card lift on hover (focus, project, skill, timeline) */
+.focus, .project, .skill-group, .timeline__content {
+  transition:
+    transform 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out),
+    background 0.35s var(--ease-out);
+}
+.focus:hover, .skill-group:hover, .timeline__content:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-accent);
+  box-shadow: 0 18px 40px -22px rgba(167, 139, 250, 0.25);
+}
+
+/* Gradient text utility for callouts */
+.hero__tagline strong {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+/* Refine nav on scroll: stronger blur + thinner border */
+.nav.is-scrolled {
+  background: rgba(10, 8, 20, 0.85);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+
+/* Smooth image load */
+img { opacity: 1; transition: opacity 0.4s var(--ease); }
+img[loading="lazy"] { opacity: 0; }
+img[loading="lazy"].is-loaded,
+img.is-loaded { opacity: 1; }
+
+/* Prevent any horizontal overflow on tiny screens */
+html, body { overflow-x: hidden; }
+
+/* Better tap targets on touch devices */
+@media (hover: none) {
+  .btn, .nav__mobile a, .hero__contacts a { min-height: 44px; }
 }
