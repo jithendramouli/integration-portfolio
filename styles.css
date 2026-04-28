@@ -152,6 +152,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: linear-gradient(180deg, transparent 0%, var(--bg-alt) 10%, var(--bg-alt) 90%, transparent 100%);
 }
 
+/* Clear vertical rhythm between hero and content sections */
+main > .section {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .section__head {
   margin-bottom: 3.5rem;
   max-width: 740px;
@@ -193,10 +198,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .section__lead {
   margin-top: 1.25rem;
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  max-width: 600px;
-  line-height: 1.7;
+  color: var(--text-soft);
+  font-size: 1rem;
+  max-width: 34rem;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
 }
 
 /* ==========================================================
@@ -897,9 +903,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   position: relative;
   padding-left: 1.4rem;
   color: var(--text-muted);
-  margin-bottom: 0.7rem;
-  font-size: 0.95rem;
-  line-height: 1.65;
+  margin-bottom: 0.85rem;
+  font-size: 0.93rem;
+  line-height: 1.58;
 }
 .timeline__list li::before {
   content: '';
