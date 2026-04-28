@@ -1460,7 +1460,7 @@ main > .section {
   transition: box-shadow 0.35s var(--ease), border-color 0.35s var(--ease), transform 0.35s var(--ease);
 }
 
-/* App-icon style tile: light mat for white-backed marks, dark mat for Workato */
+/* App-icon tiles: unified dark mat so marks read like Workato (no white “sticker”) */
 .stack-strip__logo-tile {
   width: 80px;
   height: 80px;
@@ -1468,14 +1468,10 @@ main > .section {
   overflow: hidden;
   display: grid;
   place-items: center;
-  background: linear-gradient(165deg, #ffffff 0%, #e8edf4 55%, #dce3ec 100%);
+  background: linear-gradient(165deg, #26262c 0%, #161618 48%, #0e0e11 100%);
   box-sizing: border-box;
   isolation: isolate;
   transition: filter 0.4s var(--ease), transform 0.35s var(--ease);
-}
-
-.stack-strip__brand--workato .stack-strip__logo-tile {
-  background: linear-gradient(165deg, #222226 0%, #141418 50%, #0e0e11 100%);
 }
 
 .stack-strip__logo-img {
