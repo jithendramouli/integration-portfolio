@@ -1411,13 +1411,22 @@ main > .section {
   transform: translateY(calc(var(--scroll-shift, 0px) * var(--d, 0.4) * -0.32 - 5px)) scale(1.04);
 }
 .stack-strip__brand--mule:hover .stack-strip__brand-frame {
-  box-shadow: 0 0 0 1px rgba(0, 217, 165, 0.35), 0 16px 40px -12px rgba(0, 217, 165, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 162, 223, 0.45),
+    0 0 24px -4px rgba(0, 162, 223, 0.35),
+    0 16px 40px -12px rgba(0, 162, 223, 0.25);
 }
 .stack-strip__brand--sf:hover .stack-strip__brand-frame {
-  box-shadow: 0 0 0 1px rgba(0, 161, 224, 0.4), 0 16px 40px -12px rgba(0, 161, 224, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 161, 224, 0.5),
+    0 0 24px -4px rgba(0, 161, 224, 0.4),
+    0 16px 40px -12px rgba(0, 161, 224, 0.3);
 }
 .stack-strip__brand--workato:hover .stack-strip__brand-frame {
-  box-shadow: 0 0 0 1px rgba(255, 107, 44, 0.4), 0 16px 40px -12px rgba(255, 107, 44, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(0, 213, 210, 0.5),
+    0 0 28px -4px rgba(0, 213, 210, 0.35),
+    0 16px 40px -12px rgba(0, 213, 210, 0.22);
 }
 
 .stack-strip__halo {
@@ -1446,10 +1455,58 @@ main > .section {
 }
 .stack-strip__brand-frame img {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   image-rendering: -webkit-optimize-contrast;
+}
+
+/* Reference marks: brand-colored glow (drop-shadow reads well on dark UI) */
+.stack-strip__logo-img {
+  border-radius: 12px;
+  transition: filter 0.4s var(--ease), transform 0.35s var(--ease);
+}
+
+.stack-strip__brand--sf .stack-strip__logo-img {
+  filter:
+    drop-shadow(0 0 6px rgba(0, 161, 224, 0.55))
+    drop-shadow(0 0 16px rgba(0, 161, 224, 0.28));
+}
+.stack-strip__brand--sf:hover .stack-strip__logo-img {
+  filter:
+    drop-shadow(0 0 10px rgba(0, 161, 224, 0.95))
+    drop-shadow(0 0 26px rgba(0, 161, 224, 0.5))
+    drop-shadow(0 0 42px rgba(0, 161, 224, 0.22));
+}
+
+.stack-strip__brand--mule .stack-strip__logo-img {
+  filter:
+    drop-shadow(0 0 6px rgba(0, 162, 223, 0.55))
+    drop-shadow(0 0 16px rgba(0, 162, 223, 0.28));
+}
+.stack-strip__brand--mule:hover .stack-strip__logo-img {
+  filter:
+    drop-shadow(0 0 10px rgba(0, 162, 223, 0.95))
+    drop-shadow(0 0 26px rgba(0, 162, 223, 0.48))
+    drop-shadow(0 0 42px rgba(0, 162, 223, 0.2));
+}
+
+.stack-strip__brand--workato .stack-strip__logo-img {
+  filter:
+    drop-shadow(0 0 8px rgba(0, 213, 210, 0.65))
+    drop-shadow(0 0 18px rgba(0, 213, 210, 0.35));
+}
+.stack-strip__brand--workato:hover .stack-strip__logo-img {
+  filter:
+    drop-shadow(0 0 12px rgba(0, 213, 210, 1))
+    drop-shadow(0 0 28px rgba(0, 213, 210, 0.55))
+    drop-shadow(0 0 48px rgba(0, 213, 210, 0.25));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-strip__logo-img {
+    transition: none;
+  }
 }
 
 .stack-strip__name {
