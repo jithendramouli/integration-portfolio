@@ -85,8 +85,8 @@
 
   <main>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero" id="home">
+    <!-- ============ HERO (game-style HUD deck — portrait uses CSS 3D tilt; swap to GLB + model-viewer when you have a mesh) ============ -->
+    <section class="hero hero--deck" id="home">
       <div class="container hero__grid">
 
         <!-- LEFT -->
@@ -157,12 +157,39 @@
 
         <!-- RIGHT -->
         <div class="hero__media reveal-up" data-delay="200">
-          <div class="hero__portrait">
-            <div class="hero__portrait-glow" aria-hidden="true"></div>
-            <img src="assets/profile.png" alt="Portrait of Jithendra Mouli" />
+          <div class="hero__deck-panel">
+            <div class="hero__deck-panel__chrome" aria-hidden="true">
+              <span class="hero__deck-bracket hero__deck-bracket--tl"></span>
+              <span class="hero__deck-bracket hero__deck-bracket--tr"></span>
+              <span class="hero__deck-bracket hero__deck-bracket--bl"></span>
+              <span class="hero__deck-bracket hero__deck-bracket--br"></span>
+            </div>
+            <header class="hero__deck-head">
+              <span class="hero__deck-tag">Character loadout</span>
+              <span class="hero__deck-sub">Pointer or finger: orbit view</span>
+            </header>
+            <div
+              class="hero__portrait hero__portrait--3d"
+              id="heroPortrait3d"
+              role="presentation"
+            >
+              <div class="hero__portrait-glow hero__portrait-glow--hud" aria-hidden="true"></div>
+              <div class="hero__portrait-3d-inner">
+                <div class="hero__portrait-3d-track">
+                  <img src="assets/profile.png" alt="Portrait of Jithendra Mouli" width="640" height="800" decoding="async" />
+                </div>
+              </div>
+            </div>
+            <ul class="hero__loadout" aria-label="Focus areas">
+              <li><span class="hero__loadout-mark" aria-hidden="true"></span> API-led integration &amp; contracts</li>
+              <li><span class="hero__loadout-mark" aria-hidden="true"></span> B2B / EDI under real traffic</li>
+              <li><span class="hero__loadout-mark" aria-hidden="true"></span> Reliability, queues, observability</li>
+              <li><span class="hero__loadout-mark" aria-hidden="true"></span> MuleSoft · Workato · production ops</li>
+            </ul>
+            <p class="hero__deck-quote" aria-hidden="false">Solving real-world integration challenges and building resilient systems.</p>
           </div>
 
-          <aside class="hero__stats" aria-label="Highlights">
+          <aside class="hero__stats hero__stats--hud" aria-label="Highlights">
             <div class="hero__stat">
               <strong data-count="3" data-suffix="+">0</strong>
               <span>Years Experience</span>

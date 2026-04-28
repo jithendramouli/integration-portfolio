@@ -57,6 +57,35 @@
     setJourneyActive('#home');
   }
 
+  /* ---------- Hero portrait: CSS 3D tilt (photo on a plane — swap for GLB + model-viewer when you have a mesh) ---------- */
+  const portraitStage = $('#heroPortrait3d');
+  if (portraitStage && !prefersReduced) {
+    const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+    const applyTilt = (clientX, clientY) => {
+      const r = portraitStage.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      const px = (clientX - r.left) / r.width - 0.5;
+      const py = (clientY - r.top) / r.height - 0.5;
+      const maxX = 11;
+      const maxY = 15;
+      portraitStage.style.setProperty(
+        '--tilt-x',
+        clamp(-py * maxX * 2, -maxX, maxX).toFixed(2) + 'deg'
+      );
+      portraitStage.style.setProperty(
+        '--tilt-y',
+        clamp(px * maxY * 2, -maxY, maxY).toFixed(2) + 'deg'
+      );
+    };
+    portraitStage.addEventListener('pointermove', (e) => {
+      applyTilt(e.clientX, e.clientY);
+    });
+    portraitStage.addEventListener('pointerleave', () => {
+      portraitStage.style.setProperty('--tilt-x', '0deg');
+      portraitStage.style.setProperty('--tilt-y', '0deg');
+    });
+  }
+
   /* ---------- Mobile menu ---------- */
   const toggle = $('#navToggle');
   const mobile = $('#navMobile');

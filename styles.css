@@ -538,6 +538,162 @@ main > .section {
   align-items: center;
 }
 
+/* ----- Game-style HUD hero (concept palette: cyan / violet / amber) ----- */
+.hero--deck {
+  --hud-cyan: #00e5ff;
+  --hud-violet: #7c3aed;
+  --hud-amber: #ffb020;
+  --hud-panel: rgba(13, 11, 22, 0.88);
+  --hud-line: rgba(0, 229, 255, 0.22);
+  --hud-line-soft: rgba(124, 58, 237, 0.2);
+}
+
+.hero__deck-panel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1.1rem 1.1rem 1.25rem;
+  background: var(--hud-panel);
+  border: 1px solid var(--hud-line);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 0 40px -12px rgba(0, 229, 255, 0.12),
+    0 24px 56px -28px rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.hero__deck-panel__chrome {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.hero__deck-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--hud-cyan);
+  border-style: solid;
+  opacity: 0.65;
+}
+.hero__deck-bracket--tl { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
+.hero__deck-bracket--tr { top: 6px; right: 6px; border-width: 1px 1px 0 0; }
+.hero__deck-bracket--bl { bottom: 6px; left: 6px; border-width: 0 0 1px 1px; }
+.hero__deck-bracket--br { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+
+.hero__deck-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--hud-line-soft);
+}
+.hero__deck-tag {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--hud-cyan);
+}
+.hero__deck-sub {
+  font-size: 0.65rem;
+  color: var(--text-soft);
+  letter-spacing: 0.06em;
+}
+
+.hero__loadout {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.hero__loadout li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+}
+.hero__loadout-mark {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.35em;
+  border-radius: 1px;
+  background: linear-gradient(135deg, var(--hud-cyan), var(--hud-violet));
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+}
+
+.hero__deck-quote {
+  margin-top: 0.95rem;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  padding-left: 0.35rem;
+  border-left: 2px solid rgba(255, 176, 32, 0.45);
+}
+
+/* CSS 3D “character plate” — rotate with pointer (not a full mesh) */
+.hero__portrait--3d {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  perspective: 980px;
+  touch-action: manipulation;
+  cursor: grab;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+}
+.hero__portrait--3d:active {
+  cursor: grabbing;
+}
+.hero__portrait--3d .hero__portrait-3d-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.2s var(--ease-out);
+  will-change: transform;
+}
+.hero__portrait--3d .hero__portrait-3d-track {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(124, 58, 237, 0.15),
+    0 0 32px -8px rgba(0, 229, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transform: translateZ(12px);
+}
+
+.hero__stats--hud {
+  border-color: rgba(0, 229, 255, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, 0.06),
+    0 20px 50px -20px rgba(0, 0, 0, 0.75);
+}
+.hero__stats--hud .hero__stat strong {
+  background: linear-gradient(135deg, #00e5ff, #7c3aed);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 .hero__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -754,6 +910,23 @@ main > .section {
 @keyframes glowPulse {
   0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
   50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
+}
+
+/* HUD portrait glow wins over default (must follow base .hero__portrait-glow) */
+.hero__portrait-glow.hero__portrait-glow--hud {
+  background: radial-gradient(
+    circle,
+    rgba(0, 229, 255, 0.18) 0%,
+    rgba(124, 58, 237, 0.2) 35%,
+    transparent 70%
+  );
+  filter: blur(28px);
+  opacity: 0.88;
+  animation: glowPulseHud 9s ease-in-out infinite;
+}
+@keyframes glowPulseHud {
+  0%, 100% { opacity: 0.82; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 
 /* IMAGE BLENDING FIX — aggressive feather, no hard box visible */
@@ -1427,6 +1600,15 @@ main > .section {
     opacity: 0.75;
     transform: scaleY(1);
   }
+  .hero__portrait--3d {
+    cursor: default;
+  }
+  .hero__portrait--3d .hero__portrait-3d-inner {
+    transition: none;
+  }
+  .hero__portrait-glow--hud {
+    animation: none;
+  }
 }
 
 /* ==========================================================
@@ -1470,7 +1652,11 @@ main > .section {
     gap: 1.75rem;
   }
   .hero__portrait {
-    max-width: 280px;
+    max-width: 100%;
+  }
+  .hero__deck-panel {
+    max-width: min(380px, 100%);
+    padding: 0.85rem 0.85rem 1rem;
   }
   .hero__portrait-glow { width: 130%; height: 130%; }
   .hero__stats {
