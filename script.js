@@ -18,6 +18,16 @@
   const nav = $('#nav');
   const progress = $('#scrollProgress');
 
+  const journeyStops = $$('.journey-rail__stop');
+  const journeyTargets = journeyStops
+    .map((a) => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+  const setJourneyActive = (href) => {
+    journeyStops.forEach((link) => {
+      link.classList.toggle('is-active', link.getAttribute('href') === href);
+    });
+  };
+
   const onScroll = () => {
     const y = window.scrollY;
     if (nav) nav.classList.toggle('is-scrolled', y > 12);
@@ -26,9 +36,26 @@
       const pct = max > 0 ? (y / max) * 100 : 0;
       progress.style.width = pct + '%';
     }
+    if (journeyStops.length && y < 96) setJourneyActive('#home');
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  if (journeyStops.length && journeyTargets.length && 'IntersectionObserver' in window) {
+    const jSpy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          setJourneyActive('#' + entry.target.id);
+        });
+      },
+      { rootMargin: '-44% 0px -44% 0px', threshold: 0 }
+    );
+    journeyTargets.forEach((el) => jSpy.observe(el));
+  }
+  if (journeyStops.length && window.scrollY < 80) {
+    setJourneyActive('#home');
+  }
 
   /* ---------- Mobile menu ---------- */
   const toggle = $('#navToggle');

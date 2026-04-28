@@ -16,7 +16,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -26,11 +26,26 @@
   <div class="ambient" aria-hidden="true">
     <div class="ambient__orb ambient__orb--1"></div>
     <div class="ambient__orb ambient__orb--2"></div>
+    <div class="ambient__orb ambient__orb--3"></div>
     <div class="ambient__grid"></div>
+    <div class="ambient__grain" aria-hidden="true"></div>
   </div>
 
   <!-- Scroll progress -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <aside class="journey-rail" aria-label="Sections on this page">
+    <nav class="journey-rail__nav">
+      <a href="#home" class="journey-rail__stop" data-journey="#home"><span class="sr-only">Intro</span></a>
+      <a href="#stack" class="journey-rail__stop" data-journey="#stack"><span class="sr-only">Stack</span></a>
+      <a href="#about" class="journey-rail__stop" data-journey="#about"><span class="sr-only">About</span></a>
+      <a href="#skills" class="journey-rail__stop" data-journey="#skills"><span class="sr-only">Expertise</span></a>
+      <a href="#experience" class="journey-rail__stop" data-journey="#experience"><span class="sr-only">Career</span></a>
+      <a href="#projects" class="journey-rail__stop" data-journey="#projects"><span class="sr-only">Case studies</span></a>
+      <a href="#lab" class="journey-rail__stop" data-journey="#lab"><span class="sr-only">Playground</span></a>
+      <a href="#contact" class="journey-rail__stop" data-journey="#contact"><span class="sr-only">Contact</span></a>
+    </nav>
+  </aside>
 
   <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
@@ -82,11 +97,12 @@
           </p>
 
           <h1 class="hero__title">
-            <span class="line reveal-up" data-delay="80">Building Reliable Systems.</span>
+            <span class="line reveal-up" data-delay="80"><span class="hero__title-shimmer">Building Reliable Systems.</span></span>
             <span class="line reveal-up" data-delay="180">
               Connecting <span class="hero__title-accent">What Matters.</span>
             </span>
           </h1>
+          <p class="hero__kicker reveal-up" data-delay="260">Production paths · B2B &amp; APIs · Systems that survive Monday morning</p>
 
           <p class="hero__tagline reveal-up" data-delay="320">
             Enterprise integrations on <strong>MuleSoft</strong> and <strong>Workato</strong>
