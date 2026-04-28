@@ -1339,6 +1339,206 @@ main > .section {
 }
 
 /* ==========================================================
+   STACK STRIP + PLAYGROUND
+   ========================================================== */
+
+.section.stack-strip {
+  padding: 3.25rem 0 3.75rem;
+  overflow: hidden;
+  position: relative;
+}
+@media (min-width: 880px) {
+  .section.stack-strip { padding: 3.5rem 0 4.25rem; }
+}
+
+.stack-strip__ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(80% 120% at 50% 0%, rgba(167, 139, 250, 0.12), transparent 55%);
+  pointer-events: none;
+}
+
+.stack-strip__label {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+.stack-strip__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.75rem 2.5rem;
+  transform: translate3d(0, var(--scroll-shift, 0px), 0) rotate(var(--scroll-tilt, 0deg));
+  will-change: transform;
+}
+
+.stack-strip__icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: default;
+  transition: transform 0.35s var(--ease), filter 0.35s var(--ease);
+  transform: translateY(calc(var(--scroll-shift, 0px) * var(--d, 0.4) * -0.35));
+}
+.stack-strip__icon:hover {
+  transform: translateY(calc(var(--scroll-shift, 0px) * var(--d, 0.4) * -0.35)) scale(1.06);
+  filter: drop-shadow(0 0 18px rgba(167, 139, 250, 0.55)) drop-shadow(0 0 28px rgba(124, 58, 237, 0.35));
+}
+.stack-strip__icon--mule:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 217, 165, 0.55)) drop-shadow(0 0 32px rgba(0, 217, 165, 0.25));
+}
+.stack-strip__icon--sf:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 161, 224, 0.55)) drop-shadow(0 0 30px rgba(0, 161, 224, 0.25));
+}
+.stack-strip__icon--workato:hover {
+  filter: drop-shadow(0 0 20px rgba(255, 107, 44, 0.5)) drop-shadow(0 0 28px rgba(255, 140, 90, 0.2));
+}
+
+.stack-strip__halo {
+  position: absolute;
+  inset: -12px;
+  border-radius: 22px;
+  background: radial-gradient(circle at 50% 40%, rgba(167, 139, 250, 0.2), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  z-index: 0;
+  pointer-events: none;
+}
+.stack-strip__icon:hover .stack-strip__halo {
+  opacity: 1;
+}
+
+.stack-strip__icon svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.stack-strip__name {
+  position: relative;
+  z-index: 1;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+/* Hero resume button row */
+.hero__cta--resumes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.75rem;
+}
+.hero__resume-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.btn--compact {
+  padding: 0.82rem 1.05rem;
+  font-size: 0.86rem;
+}
+
+/* Playground */
+.playground__panel {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(165deg, rgba(21, 17, 31, 0.95), rgba(12, 10, 22, 0.98));
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.65);
+  transition: box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.playground__panel.is-hit {
+  border-color: rgba(34, 197, 94, 0.45);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2), 0 24px 48px -24px rgba(34, 197, 94, 0.15);
+}
+
+.playground__track {
+  position: relative;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.playground__zone {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  width: 24%;
+  min-width: 76px;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px dashed rgba(34, 197, 94, 0.4);
+  pointer-events: none;
+}
+
+.playground__marker {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff, #e0e7ff);
+  box-shadow:
+    0 0 0 2px rgba(167, 139, 250, 0.5),
+    0 0 22px rgba(167, 139, 250, 0.75);
+  will-change: transform;
+}
+
+.playground__hud {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.85rem;
+}
+.playground__stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.playground__stats strong {
+  color: var(--text);
+  font-weight: 700;
+}
+.playground__feedback {
+  min-height: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin: 0;
+}
+
+@media (max-width: 879px) {
+  .stack-strip__row {
+    gap: 1.25rem 1.5rem;
+  }
+  .hero__resume-btns {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* ==========================================================
    PROFESSIONAL POLISH
    ========================================================== */
 

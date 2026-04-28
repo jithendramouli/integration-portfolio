@@ -98,15 +98,21 @@
             I build systems that don&rsquo;t break in production.
           </p>
 
-          <div class="hero__cta reveal-up" data-delay="440">
+          <div class="hero__cta hero__cta--resumes reveal-up" data-delay="440">
             <a href="#projects" class="btn btn--primary">
               <span>Case studies</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             </a>
-            <a href="assets/Jithendra-Mouli-Resume.html" class="btn btn--ghost" download="Jithendra-Mouli-Resume.html" aria-label="Download résumé as HTML (open file and use Print to save as PDF)">
-              <span>Résumé (HTML)</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </a>
+            <div class="hero__resume-btns">
+              <a href="Resume.pdf" class="btn btn--ghost" download="Jithendra-Mouli-Resume.pdf" aria-label="Download résumé as PDF">
+                <span>Résumé (PDF)</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </a>
+              <a href="assets/Jithendra-Mouli-Resume.html" class="btn btn--ghost btn--compact" download="Jithendra-Mouli-Resume.html" aria-label="Download résumé as HTML">
+                <span>HTML</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </a>
+            </div>
           </div>
 
           <ul class="hero__contacts reveal-up" data-delay="560" aria-label="Contact links">
@@ -162,6 +168,64 @@
               <span>Focus on Reliability</span>
             </div>
           </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STACK STRIP (scroll + glow) ============ -->
+    <section class="section stack-strip reveal" id="stack" aria-label="Platforms in focus">
+      <div class="stack-strip__ambient" aria-hidden="true"></div>
+      <div class="container">
+        <p class="stack-strip__label">Platforms in motion &mdash; hover for glow; scroll shifts the row.</p>
+        <div class="stack-strip__row" data-parallax-row>
+          <div class="stack-strip__icon stack-strip__icon--mule" style="--d:0.35" title="MuleSoft">
+            <span class="stack-strip__halo" aria-hidden="true"></span>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="40" height="40" rx="12" fill="#061c17" stroke="#00d9a5" stroke-width="1.5"/>
+              <path d="M14 30V18l6 8 6-8v12M32 18v12" stroke="#7fffd4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="stack-strip__name">MuleSoft</span>
+          </div>
+          <div class="stack-strip__icon stack-strip__icon--sf" style="--d:0.55" title="Salesforce">
+            <span class="stack-strip__halo" aria-hidden="true"></span>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M36 28c2.2 0 4-1.8 4-4s-1.8-4-4-4c-.3 0-.6 0-.9.1A6 6 0 0 0 25 16a6 6 0 0 0-5.8 4.5 4 4 0 1 0-4.2 7.5h21z" fill="#032d60" stroke="#00a1e0" stroke-width="1.2"/>
+              <path d="M18 26h14M20 31h10" stroke="#7ecbff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+            </svg>
+            <span class="stack-strip__name">Salesforce</span>
+          </div>
+          <div class="stack-strip__icon stack-strip__icon--workato" style="--d:0.25" title="Workato">
+            <span class="stack-strip__halo" aria-hidden="true"></span>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="24" r="18" fill="#2a1208" stroke="#ff6b2c" stroke-width="1.5"/>
+              <path d="M16 30V18l8 12 8-12v12" stroke="#ffb59a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="stack-strip__name">Workato</span>
+          </div>
+          <div class="stack-strip__icon stack-strip__icon--mq" style="--d:0.65" title="IBM MQ">
+            <span class="stack-strip__halo" aria-hidden="true"></span>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="8" y="10" width="32" height="28" rx="4" fill="#0f172a" stroke="#6366f1" stroke-width="1.5"/>
+              <path d="M12 18h24M12 24h18M12 30h22" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="stack-strip__name">IBM MQ</span>
+          </div>
+          <div class="stack-strip__icon stack-strip__icon--edi" style="--d:0.45" title="EDI / B2B">
+            <span class="stack-strip__halo" aria-hidden="true"></span>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="6" y="8" width="36" height="32" rx="3" fill="#12061a" stroke="#c084fc" stroke-width="1.5"/>
+              <path d="M12 16h24M12 22h16M12 28h20" stroke="#e9d5ff" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span class="stack-strip__name">EDI / B2B</span>
+          </div>
+          <div class="stack-strip__icon stack-strip__icon--dw" style="--d:0.5" title="DataWeave">
+            <span class="stack-strip__halo" aria-hidden="true"></span>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M10 34L24 10l14 24H10z" fill="#0c1829" stroke="#38bdf8" stroke-width="1.5"/>
+              <path d="M18 28h12" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="stack-strip__name">DataWeave</span>
+          </div>
         </div>
       </div>
     </section>
@@ -603,10 +667,36 @@
       </div>
     </section>
 
+    <!-- ============ PLAYGROUND (mini-game) ============ -->
+    <section class="section section--alt playground reveal" id="lab">
+      <div class="container">
+        <header class="section__head">
+          <p class="section__eyebrow"><span>05</span> Playground</p>
+          <h2 class="section__title">Deploy window</h2>
+          <p class="section__lead">A tiny timing game: hit <strong>Deploy</strong> when the pulse sits in the green window &mdash; same instinct as lining up a safe cutover.</p>
+        </header>
+
+        <div class="playground__panel" data-deploy-game>
+          <div class="playground__track" aria-hidden="true">
+            <div class="playground__zone"></div>
+            <div class="playground__marker"></div>
+          </div>
+          <div class="playground__hud">
+            <button type="button" class="btn btn--primary playground__deploy">Deploy</button>
+            <div class="playground__stats">
+              <span class="playground__score">Score: <strong data-score>0</strong></span>
+              <span class="playground__best">Best: <strong data-best>0</strong></span>
+            </div>
+            <p class="playground__feedback" data-feedback aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ CONTACT ============ -->
     <section class="section section--contact" id="contact">
       <div class="container">
-        <p class="section__eyebrow section__eyebrow--center"><span>05</span> Contact</p>
+        <p class="section__eyebrow section__eyebrow--center"><span>06</span> Contact</p>
         <h2 class="section__title section__title--center">
           Let's build something<br/>
           <span class="hero__title-accent">worth shipping.</span>
@@ -647,8 +737,14 @@
             </a>
           </li>
           <li>
-            <a href="assets/Jithendra-Mouli-Resume.html" download="Jithendra-Mouli-Resume.html" target="_blank" rel="noopener noreferrer" aria-label="Download résumé as HTML">
+            <a href="Resume.pdf" download="Jithendra-Mouli-Resume.pdf" aria-label="Download résumé as PDF">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Résumé (PDF)</span>
+            </a>
+          </li>
+          <li>
+            <a href="assets/Jithendra-Mouli-Resume.html" download="Jithendra-Mouli-Resume.html" target="_blank" rel="noopener noreferrer" aria-label="Download résumé as HTML">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               <span>Résumé (HTML)</span>
             </a>
           </li>

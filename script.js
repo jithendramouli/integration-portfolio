@@ -202,4 +202,101 @@
       btn.setAttribute('aria-expanded', String(!isOpen));
     });
   });
+
+  /* ---------- Stack strip: scroll-linked parallax ---------- */
+  const stackStrip = $('.stack-strip');
+  if (stackStrip && !prefersReduced) {
+    let ticking = false;
+    const updateStackParallax = () => {
+      const r = stackStrip.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (r.bottom < 0 || r.top > vh) {
+        stackStrip.style.setProperty('--scroll-shift', '0px');
+        stackStrip.style.setProperty('--scroll-tilt', '0deg');
+        ticking = false;
+        return;
+      }
+      const center = (r.top + r.height / 2 - vh / 2) / (vh * 0.85);
+      const shift = Math.max(-26, Math.min(26, -center * 34));
+      const tilt = Math.max(-3.5, Math.min(3.5, center * 4.5));
+      stackStrip.style.setProperty('--scroll-shift', shift + 'px');
+      stackStrip.style.setProperty('--scroll-tilt', tilt + 'deg');
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateStackParallax);
+        }
+      },
+      { passive: true }
+    );
+    updateStackParallax();
+  }
+
+  /* ---------- Deploy window mini-game ---------- */
+  const game = $('[data-deploy-game]');
+  if (game) {
+    const marker = $('.playground__marker', game);
+    const btnDeploy = $('.playground__deploy', game);
+    const scoreEl = $('[data-score]', game);
+    const bestEl = $('[data-best]', game);
+    const fb = $('[data-feedback]', game);
+    const LS_KEY = 'deployWindowBest';
+
+    if (prefersReduced) {
+      if (btnDeploy) btnDeploy.disabled = true;
+      if (fb) fb.textContent = 'Mini-game is off when “Reduce motion” is enabled in your system settings.';
+    } else if (marker && btnDeploy && scoreEl && bestEl) {
+      const track = $('.playground__track', game);
+      let pos = 0;
+      let dir = 1;
+      let speed = 1;
+      let score = 0;
+      let best = parseInt(localStorage.getItem(LS_KEY) || '0', 10);
+      bestEl.textContent = String(best);
+      let rafId = 0;
+      const zoneMin = 0.38;
+      const zoneMax = 0.62;
+
+      const trackUsable = () => Math.max(40, (track ? track.clientWidth : 320) - 16);
+
+      const loop = () => {
+        pos += 0.0068 * speed * dir;
+        if (pos >= 1) {
+          pos = 1;
+          dir = -1;
+        } else if (pos <= 0) {
+          pos = 0;
+          dir = 1;
+        }
+        marker.style.transform = `translate3d(${pos * trackUsable()}px, -50%, 0)`;
+        rafId = requestAnimationFrame(loop);
+      };
+
+      marker.style.top = '50%';
+      rafId = requestAnimationFrame(loop);
+
+      btnDeploy.addEventListener('click', () => {
+        const hit = pos >= zoneMin && pos <= zoneMax;
+        if (hit) {
+          score += 1;
+          speed = Math.min(speed + 0.1, 2.35);
+          scoreEl.textContent = String(score);
+          if (score > best) {
+            best = score;
+            localStorage.setItem(LS_KEY, String(best));
+            bestEl.textContent = String(best);
+          }
+          if (fb) fb.textContent = 'Shipped — green deploy window.';
+          game.classList.add('is-hit');
+          setTimeout(() => game.classList.remove('is-hit'), 320);
+        } else if (fb) {
+          fb.textContent = 'Miss — align the pulse with the dashed lane, then deploy.';
+        }
+      });
+    }
+  }
 })();
