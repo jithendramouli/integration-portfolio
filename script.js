@@ -236,66 +236,175 @@
     updateStackParallax();
   }
 
-  /* ---------- Deploy window mini-game ---------- */
-  const game = $('[data-deploy-game]');
-  if (game) {
-    const marker = $('.playground__marker', game);
-    const btnDeploy = $('.playground__deploy', game);
-    const scoreEl = $('[data-score]', game);
-    const bestEl = $('[data-best]', game);
-    const fb = $('[data-feedback]', game);
-    const LS_KEY = 'deployWindowBest';
+  /* ---------- Route Rush (lane game) ---------- */
+  const routeGame = $('[data-route-game]');
+  if (routeGame) {
+    const arena = $('.route-game__arena', routeGame);
+    const layer = $('[data-rs-packets]', routeGame);
+    const startBtn = $('[data-rs-start]', routeGame);
+    const scoreEl = $('[data-rs-score]', routeGame);
+    const bestEl = $('[data-rs-best]', routeGame);
+    const livesEl = $('[data-rs-lives]', routeGame);
+    const fb = $('[data-rs-feedback]', routeGame);
+    const taps = $$('[data-tap-lane]', routeGame);
+    const LS_KEY = 'routeRushBest';
+
+    const flash = (cls) => {
+      routeGame.classList.remove('is-hit', 'is-miss');
+      if (cls) routeGame.classList.add(cls);
+      if (cls) setTimeout(() => routeGame.classList.remove(cls), 260);
+    };
 
     if (prefersReduced) {
-      if (btnDeploy) btnDeploy.disabled = true;
-      if (fb) fb.textContent = 'Mini-game is off when “Reduce motion” is enabled in your system settings.';
-    } else if (marker && btnDeploy && scoreEl && bestEl) {
-      const track = $('.playground__track', game);
-      let pos = 0;
-      let dir = 1;
-      let speed = 1;
+      if (startBtn) startBtn.disabled = true;
+      if (fb) fb.textContent = 'Route Rush is off when “Reduce motion” is enabled in your system settings.';
+    } else if (arena && layer && startBtn && scoreEl && bestEl && livesEl) {
+      let running = false;
+      let rafId = 0;
+      let lastT = 0;
+      let spawnAcc = 0;
       let score = 0;
+      let lives = 3;
       let best = parseInt(localStorage.getItem(LS_KEY) || '0', 10);
       bestEl.textContent = String(best);
-      let rafId = 0;
-      const zoneMin = 0.38;
-      const zoneMax = 0.62;
 
-      const trackUsable = () => Math.max(40, (track ? track.clientWidth : 320) - 16);
+      /** @type {{ el: HTMLElement, lane: number, y: number, speed: number }[]} */
+      let packets = [];
 
-      const loop = () => {
-        pos += 0.0068 * speed * dir;
-        if (pos >= 1) {
-          pos = 1;
-          dir = -1;
-        } else if (pos <= 0) {
-          pos = 0;
-          dir = 1;
-        }
-        marker.style.transform = `translate3d(${pos * trackUsable()}px, -50%, 0)`;
-        rafId = requestAnimationFrame(loop);
+      const arenaH = () => arena.clientHeight || 280;
+
+      const catchBand = () => {
+        const H = arenaH();
+        return { top: H * 0.58, bottom: H * 0.78 };
       };
 
-      marker.style.top = '50%';
-      rafId = requestAnimationFrame(loop);
+      const laneToPct = (lane) => 16.666 + lane * 33.333;
 
-      btnDeploy.addEventListener('click', () => {
-        const hit = pos >= zoneMin && pos <= zoneMax;
-        if (hit) {
+      const spawn = () => {
+        const lane = Math.floor(Math.random() * 3);
+        const el = document.createElement('div');
+        el.className = 'route-game__packet';
+        el.style.left = laneToPct(lane) + '%';
+        el.style.top = '-8px';
+        layer.appendChild(el);
+        packets.push({ el, lane, y: -8, speed: 0.11 + Math.min(score, 40) * 0.0022 });
+      };
+
+      const clearPackets = () => {
+        packets.forEach((p) => p.el.remove());
+        packets = [];
+      };
+
+      const endGame = (msg) => {
+        running = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = 0;
+        lastT = 0;
+        clearPackets();
+        startBtn.disabled = false;
+        startBtn.textContent = 'Play again';
+        if (fb) fb.textContent = msg;
+        flash('');
+      };
+
+      const tick = (now) => {
+        if (!running) return;
+        if (!lastT) lastT = now;
+        const dt = Math.min(48, now - lastT);
+        lastT = now;
+
+        const H = arenaH();
+        const spawnEvery = Math.max(480, 1500 - score * 28);
+
+        spawnAcc += dt;
+        if (spawnAcc >= spawnEvery) {
+          spawnAcc = 0;
+          spawn();
+        }
+
+        for (let i = packets.length - 1; i >= 0; i -= 1) {
+          const p = packets[i];
+          p.y += p.speed * dt;
+          p.el.style.top = p.y + 'px';
+          const cy = p.y + 15;
+          if (cy > H + 8) {
+            lives -= 1;
+            livesEl.textContent = String(lives);
+            p.el.remove();
+            packets.splice(i, 1);
+            if (fb) fb.textContent = 'Missed — payload hit the floor.';
+            flash('is-miss');
+            if (lives <= 0) {
+              endGame('Game over — backlog wins. Hit Play again when ready.');
+              return;
+            }
+          }
+        }
+
+        rafId = requestAnimationFrame(tick);
+      };
+
+      const tryRoute = (lane) => {
+        if (!running) return;
+        const band = catchBand();
+        const inBand = packets.filter((p) => {
+          const cy = p.y + 15;
+          return cy >= band.top && cy <= band.bottom;
+        });
+        if (!inBand.length) {
+          if (fb) fb.textContent = 'Too early — wait until the dot crosses the purple band.';
+          return;
+        }
+        inBand.sort((a, b) => b.y - a.y);
+        const target = inBand[0];
+        if (target.lane === lane) {
           score += 1;
-          speed = Math.min(speed + 0.1, 2.35);
           scoreEl.textContent = String(score);
           if (score > best) {
             best = score;
             localStorage.setItem(LS_KEY, String(best));
             bestEl.textContent = String(best);
           }
-          if (fb) fb.textContent = 'Shipped — green deploy window.';
-          game.classList.add('is-hit');
-          setTimeout(() => game.classList.remove('is-hit'), 320);
-        } else if (fb) {
-          fb.textContent = 'Miss — align the pulse with the dashed lane, then deploy.';
+          target.el.remove();
+          packets = packets.filter((p) => p !== target);
+          if (fb) fb.textContent = 'Routed — nice timing.';
+          flash('is-hit');
+        } else {
+          if (fb) fb.textContent = 'Wrong lane — that payload was in another column.';
+          flash('is-miss');
         }
+      };
+
+      taps.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const lane = parseInt(btn.getAttribute('data-tap-lane') || '0', 10);
+          tryRoute(lane);
+        });
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (!running) return;
+        if (e.key === '1') tryRoute(0);
+        else if (e.key === '2') tryRoute(1);
+        else if (e.key === '3') tryRoute(2);
+      });
+
+      startBtn.addEventListener('click', () => {
+        if (running) return;
+        running = true;
+        score = 0;
+        lives = 3;
+        spawnAcc = 0;
+        lastT = 0;
+        scoreEl.textContent = '0';
+        livesEl.textContent = '3';
+        clearPackets();
+        startBtn.disabled = true;
+        startBtn.textContent = 'Playing…';
+        if (fb) fb.textContent = 'Go — route dots in the purple band.';
+        flash('');
+        arena.focus({ preventScroll: true });
+        rafId = requestAnimationFrame(tick);
       });
     }
   }

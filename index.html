@@ -176,55 +176,28 @@
     <section class="section stack-strip reveal" id="stack" aria-label="Platforms in focus">
       <div class="stack-strip__ambient" aria-hidden="true"></div>
       <div class="container">
-        <p class="stack-strip__label">Platforms in motion &mdash; hover for glow; scroll shifts the row.</p>
-        <div class="stack-strip__row" data-parallax-row>
-          <div class="stack-strip__icon stack-strip__icon--mule" style="--d:0.35" title="MuleSoft">
+        <p class="stack-strip__label">MuleSoft &middot; Salesforce &middot; Workato &mdash; brand icons via <a href="https://skillicons.dev/" target="_blank" rel="noopener noreferrer">Skill Icons</a>. Scroll tilts the row.</p>
+        <div class="stack-strip__brands" data-parallax-row>
+          <div class="stack-strip__brand stack-strip__brand--mule" style="--d:0.32" title="MuleSoft">
             <span class="stack-strip__halo" aria-hidden="true"></span>
-            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <rect x="4" y="4" width="40" height="40" rx="12" fill="#061c17" stroke="#00d9a5" stroke-width="1.5"/>
-              <path d="M14 30V18l6 8 6-8v12M32 18v12" stroke="#7fffd4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <div class="stack-strip__brand-frame">
+              <img src="https://skillicons.dev/icons?i=mulesoft" alt="MuleSoft" width="64" height="64" loading="lazy" decoding="async" />
+            </div>
             <span class="stack-strip__name">MuleSoft</span>
           </div>
-          <div class="stack-strip__icon stack-strip__icon--sf" style="--d:0.55" title="Salesforce">
+          <div class="stack-strip__brand stack-strip__brand--sf" style="--d:0.5" title="Salesforce">
             <span class="stack-strip__halo" aria-hidden="true"></span>
-            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <path d="M36 28c2.2 0 4-1.8 4-4s-1.8-4-4-4c-.3 0-.6 0-.9.1A6 6 0 0 0 25 16a6 6 0 0 0-5.8 4.5 4 4 0 1 0-4.2 7.5h21z" fill="#032d60" stroke="#00a1e0" stroke-width="1.2"/>
-              <path d="M18 26h14M20 31h10" stroke="#7ecbff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
-            </svg>
+            <div class="stack-strip__brand-frame">
+              <img src="https://skillicons.dev/icons?i=salesforce" alt="Salesforce" width="64" height="64" loading="lazy" decoding="async" />
+            </div>
             <span class="stack-strip__name">Salesforce</span>
           </div>
-          <div class="stack-strip__icon stack-strip__icon--workato" style="--d:0.25" title="Workato">
+          <div class="stack-strip__brand stack-strip__brand--workato" style="--d:0.22" title="Workato">
             <span class="stack-strip__halo" aria-hidden="true"></span>
-            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <circle cx="24" cy="24" r="18" fill="#2a1208" stroke="#ff6b2c" stroke-width="1.5"/>
-              <path d="M16 30V18l8 12 8-12v12" stroke="#ffb59a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <div class="stack-strip__brand-frame">
+              <img src="https://skillicons.dev/icons?i=workato" alt="Workato" width="64" height="64" loading="lazy" decoding="async" />
+            </div>
             <span class="stack-strip__name">Workato</span>
-          </div>
-          <div class="stack-strip__icon stack-strip__icon--mq" style="--d:0.65" title="IBM MQ">
-            <span class="stack-strip__halo" aria-hidden="true"></span>
-            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <rect x="8" y="10" width="32" height="28" rx="4" fill="#0f172a" stroke="#6366f1" stroke-width="1.5"/>
-              <path d="M12 18h24M12 24h18M12 30h22" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <span class="stack-strip__name">IBM MQ</span>
-          </div>
-          <div class="stack-strip__icon stack-strip__icon--edi" style="--d:0.45" title="EDI / B2B">
-            <span class="stack-strip__halo" aria-hidden="true"></span>
-            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <rect x="6" y="8" width="36" height="32" rx="3" fill="#12061a" stroke="#c084fc" stroke-width="1.5"/>
-              <path d="M12 16h24M12 22h16M12 28h20" stroke="#e9d5ff" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <span class="stack-strip__name">EDI / B2B</span>
-          </div>
-          <div class="stack-strip__icon stack-strip__icon--dw" style="--d:0.5" title="DataWeave">
-            <span class="stack-strip__halo" aria-hidden="true"></span>
-            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <path d="M10 34L24 10l14 24H10z" fill="#0c1829" stroke="#38bdf8" stroke-width="1.5"/>
-              <path d="M18 28h12" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <span class="stack-strip__name">DataWeave</span>
           </div>
         </div>
       </div>
@@ -667,28 +640,37 @@
       </div>
     </section>
 
-    <!-- ============ PLAYGROUND (mini-game) ============ -->
+    <!-- ============ PLAYGROUND (Route Rush) ============ -->
     <section class="section section--alt playground reveal" id="lab">
       <div class="container">
         <header class="section__head">
           <p class="section__eyebrow"><span>05</span> Playground</p>
-          <h2 class="section__title">Deploy window</h2>
-          <p class="section__lead">A tiny timing game: hit <strong>Deploy</strong> when the pulse sits in the green window &mdash; same instinct as lining up a safe cutover.</p>
+          <h2 class="section__title">Route Rush</h2>
+          <p class="section__lead">
+            Payloads fall in <strong>three lanes</strong>. When a dot crosses the <strong>purple glow band</strong>,
+            tap <strong>Left / Center / Right</strong> for that lane &mdash; or keys <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>.
+            Route before it hits the bottom. <strong>Three misses</strong> and the backlog wins.
+          </p>
         </header>
 
-        <div class="playground__panel" data-deploy-game>
-          <div class="playground__track" aria-hidden="true">
-            <div class="playground__zone"></div>
-            <div class="playground__marker"></div>
+        <div class="route-game" data-route-game>
+          <div class="route-game__hud">
+            <button type="button" class="btn btn--ghost route-game__start" data-rs-start>Start</button>
+            <span>Score <strong data-rs-score>0</strong></span>
+            <span>Best <strong data-rs-best>0</strong></span>
+            <span>Lives <strong data-rs-lives>3</strong></span>
           </div>
-          <div class="playground__hud">
-            <button type="button" class="btn btn--primary playground__deploy">Deploy</button>
-            <div class="playground__stats">
-              <span class="playground__score">Score: <strong data-score>0</strong></span>
-              <span class="playground__best">Best: <strong data-best>0</strong></span>
-            </div>
-            <p class="playground__feedback" data-feedback aria-live="polite"></p>
+          <div class="route-game__arena" tabindex="0" role="application" aria-label="Route Rush lanes">
+            <div class="route-game__lanes" aria-hidden="true"><div></div><div></div><div></div></div>
+            <div class="route-game__catchline" aria-hidden="true"></div>
+            <div class="route-game__packets" data-rs-packets></div>
           </div>
+          <div class="route-game__controls">
+            <button type="button" class="btn btn--ghost route-game__tap" data-tap-lane="0">Left <span class="route-game__kbd">1</span></button>
+            <button type="button" class="btn btn--primary route-game__tap" data-tap-lane="1">Center <span class="route-game__kbd">2</span></button>
+            <button type="button" class="btn btn--ghost route-game__tap" data-tap-lane="2">Right <span class="route-game__kbd">3</span></button>
+          </div>
+          <p class="route-game__feedback" data-rs-feedback aria-live="polite"></p>
         </div>
       </div>
     </section>
