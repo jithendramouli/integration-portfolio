@@ -685,15 +685,39 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: clamp(1.3rem, 2vw, 1.6rem);
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   letter-spacing: -0.025em;
   line-height: 1.35;
 }
+.about__micro {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin: 0 0 1.35rem;
+  line-height: 1.5;
+}
+.about__hint {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-style: italic;
+  border-left: 2px solid rgba(167, 139, 250, 0.35);
+  padding-left: 1rem;
+  margin: 1.35rem 0 1.15rem;
+}
+.about__hint a {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 500;
+  text-decoration: none;
+}
+.about__hint a:hover { text-decoration: underline; }
 .about__text p {
   color: var(--text-muted);
   margin-bottom: 1.15rem;
   font-size: 1.02rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 .about__text strong { color: var(--text); font-weight: 600; }
 
@@ -1258,6 +1282,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   /* about + cards stack cleanly */
   .about { gap: 2.5rem; }
   .about__lead { font-size: 1.05rem; }
+  .about__micro { font-size: 0.72rem; letter-spacing: 0.03em; }
   .focus-grid { gap: 1rem; }
   .focus { padding: 1.5rem; }
 
